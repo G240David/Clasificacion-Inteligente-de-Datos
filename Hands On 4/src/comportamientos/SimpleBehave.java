@@ -13,7 +13,7 @@ public class SimpleBehave extends SimpleBehaviour{
     public void action()
     {
         
-        ////-----------------DATASET {x , y}
+        //-----------------DATASET {x , y}
         double[][] dataSet = {  {471784.1, 192261.83},
                                 {443898.53, 191792.06},
                                 {407934.54, 191050.39},
@@ -65,8 +65,15 @@ public class SimpleBehave extends SimpleBehaviour{
                                 {0, 35673.41},
                                 {45173.06, 14681.4}
                              };
-        
-        
+        double[] y = SLR(dataSet);
+
+        for (int i = 0 ; i < y.length; i++) {
+            System.out.printf("y: %f\n", y[i]);
+        }  
+
+    }
+
+    public double[] SLR(double[][] dataSet){
         //-----------------DATA
         //declaracion de la data
         double promX        = 0.0;    //prom: x
@@ -108,7 +115,6 @@ public class SimpleBehave extends SimpleBehaviour{
         
         for (int i = 0 ; i < n; i++) {
             yCalculada[i] = ( b0 + (b1*dataSet[i][0]) );
-            System.out.printf("y: %f\n", yCalculada[i]);
         }  
         
         //calcula el error
@@ -116,7 +122,9 @@ public class SimpleBehave extends SimpleBehaviour{
         error = Math.sqrt( ( (sumYCuadrada) - (b0*sumY) - (b1*sumXY) ) / ( n / 2 ) );
         System.out.printf("error: %f\n", error);
         //System.out.printf("y con error: %f\n", yCalculada[0] + error);
-             
+
+        return yCalculada;
+
     }
     
     public boolean done()
