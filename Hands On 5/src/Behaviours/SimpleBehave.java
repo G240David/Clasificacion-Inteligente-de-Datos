@@ -220,7 +220,16 @@ public class SimpleBehave extends SimpleBehaviour{
                                 {8.6, 8.7, 13.4}
                              };
         
-        
+        double[] y = MLR(dataSet);
+
+        for (int i = 0 ; i < y.length; i++) {
+            System.out.printf("y: %f\n", y[i]);
+        }  
+
+    }
+    
+    public double[] MLR(double[][] dataSet){
+
         //-----------------DATA
         //declaracion de la data (todas son sumatorias)
         double y     = 0.0;
@@ -271,12 +280,19 @@ public class SimpleBehave extends SimpleBehaviour{
         b1         = b1Det / detGeneral;
         b2         = b2Det / detGeneral;
         
+        System.out.printf("b0: %f\n", b0);
+        System.out.printf("b1: %f\n", b0);
+        System.out.printf("b2: %f\n", b0);
+        System.out.printf("y = " + b0 + " + " + b1 + "(x1) + " + b2 + "(x2)\n");
+        
+        
         //Arma y muestra la ecuacion de ajuste de curvas multiples
         for (int i = 0 ; i < n; i++) {
             yCalculada[i] = (b0 + b1*dataSet[i][0] + b2*dataSet[i][1] );
-            System.out.println("y (" + b0 + " + ("+b1+" * "+dataSet[i][0]+") + ("+b2+" * "+dataSet[i][1]+") = " + yCalculada[i] );
         } 
-      
+        
+        return yCalculada;
+        
     }
     
     public boolean done()
@@ -284,8 +300,12 @@ public class SimpleBehave extends SimpleBehaviour{
         return true;
     }
     
-    
 }
+
+
+
+
+
 
 
 
