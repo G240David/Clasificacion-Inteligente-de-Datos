@@ -225,6 +225,26 @@ public class SimpleBehave extends SimpleBehaviour{
         for (int i = 0 ; i < y.length; i++) {
             System.out.printf("y: %f\n", y[i]);
         }  
+        
+        //prueba funcion con valores introducidos por teclado (Error NaN "not a number" ?)
+        double[][] dataSetIn = {{0, 0, 0}};
+        
+        Scanner lectura = new Scanner (System.in);
+
+        System.out.println("Ingrese x1: ");
+        dataSetIn[0][0] = lectura.nextDouble();
+
+        System.out.println("Ingrese x2: ");
+        dataSetIn[0][1] = lectura.nextDouble();
+        
+        System.out.println("Ingrese y: ");
+        dataSetIn[0][2] = lectura.nextDouble();
+        
+        double[] yCalculada = MLR(dataSetIn);
+        
+        for (int i = 0 ; i < yCalculada.length; i++) {
+            System.out.printf("y (calculada): %f\n", y[i]);
+        }  
 
     }
     
