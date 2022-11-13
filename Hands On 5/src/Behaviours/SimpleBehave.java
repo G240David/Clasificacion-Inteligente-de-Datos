@@ -219,14 +219,20 @@ public class SimpleBehave extends SimpleBehaviour{
                                 {42, 66.2, 25.5},
                                 {8.6, 8.7, 13.4}
                              };
-        
-        double[] y = MLR(dataSet);
+        //calcula las b
+        double[][] b = MLR(dataSet);
 
-        for (int i = 0 ; i < y.length; i++) {
-            System.out.printf("y: %f\n", y[i]);
-        }  
+        System.out.printf("b0: %f\n", b[0][0]);
+        System.out.printf("b1: %f\n", b[0][1]);
+        System.out.printf("b2: %f\n", b[0][2]);
         
-        //prueba funcion con valores introducidos por teclado (Error NaN "not a number" ?)
+        //calcula y con en el dataSet
+        for (int i = 0 ; i < dataSet.length; i++) {
+            System.out.printf("\ny("+ i +") = " + b[0][0] + " + (" + b[0][1] + " * " + dataSet[i][0] + ") + (" + b[0][2] + " * " + dataSet[i][1] + ")  \n");
+            System.out.printf("y = : %f\n", ( b[0][0] + b[0][1]*dataSet[i][0] + b[0][2]*dataSet[i][1] ) );
+        }  
+
+        //prueba funcion con valores introducidos por teclado 
         double[][] dataSetIn = {{0, 0, 0}};
         
         Scanner lectura = new Scanner (System.in);
@@ -237,18 +243,13 @@ public class SimpleBehave extends SimpleBehaviour{
         System.out.println("Ingrese x2: ");
         dataSetIn[0][1] = lectura.nextDouble();
         
-        System.out.println("Ingrese y: ");
-        dataSetIn[0][2] = lectura.nextDouble();
-        
-        double[] yCalculada = MLR(dataSetIn);
-        
-        for (int i = 0 ; i < yCalculada.length; i++) {
-            System.out.printf("y (calculada): %f\n", y[i]);
-        }  
+        System.out.printf("\ny = (" + b[0][0] + " + (" + b[0][1] + " * " + dataSetIn[0][0] + ") + (" + b[0][2] + " * " + dataSetIn[0][1] + ")\n");
+        System.out.printf("y = : %f\n", ( b[0][0] + b[0][1]*dataSetIn[0][0] + b[0][2]*dataSetIn[0][1] ) );        
+
 
     }
     
-    public double[] MLR(double[][] dataSet){
+    public double[][] MLR(double[][] dataSet){
 
         //-----------------DATA
         //declaracion de la data (todas son sumatorias)
@@ -283,13 +284,12 @@ public class SimpleBehave extends SimpleBehaviour{
         double b0Det;
         double b1Det;
         double b2Det;
-        double[] yCalculada = new double[n];
         double[][] matriz = {//  b0  b1     b2     y
                                 {n,  x1,    x2,    y},
                                 {x1, x1Pow, x1x2,  x1y},
                                 {x2, x1x2,  x2Pow, x2y}
                             };
-       
+        
         //calcula el determinante general
         detGeneral = ( ( (n*x1Pow*x2Pow) + (x1*x1x2*x2) + (x2*x1*x1x2) ) - ( (x1*x1*x2Pow) + (n*x1x2*x1x2) + (x2*x1Pow*x2) ) );
         b0Det      = ( ( (y*x1Pow*x2Pow) + (x1*x1x2*x2y) + (x2*x1y*x1x2) ) - ( (x1*x1y*x2Pow) + (y*x1x2*x1x2) + (x2*x1Pow*x2y) ) );
@@ -300,9 +300,10 @@ public class SimpleBehave extends SimpleBehaviour{
         b1         = b1Det / detGeneral;
         b2         = b2Det / detGeneral;
         
+        /*
         System.out.printf("b0: %f\n", b0);
-        System.out.printf("b1: %f\n", b0);
-        System.out.printf("b2: %f\n", b0);
+        System.out.printf("b1: %f\n", b1);
+        System.out.printf("b2: %f\n", b2);
         System.out.printf("y = " + b0 + " + " + b1 + "(x1) + " + b2 + "(x2)\n");
         
         
@@ -310,8 +311,10 @@ public class SimpleBehave extends SimpleBehaviour{
         for (int i = 0 ; i < n; i++) {
             yCalculada[i] = (b0 + b1*dataSet[i][0] + b2*dataSet[i][1] );
         } 
+        */
         
-        return yCalculada;
+        double[][] bCalculadas = {{b0, b1, b2}};
+        return bCalculadas;
         
     }
     
